@@ -58,14 +58,18 @@ public class ExoplanetTerrain : MonoBehaviour
     {
         public float scale;
         public int octaves;
+        public float frequency;
+        public float amplitude;
         public float lacunarity;
         public float persistance;
         [Range(0, 5)] public float heightMultiplier;
 
-        public PerlinNoise(float scale = 1f, int octaves = 1, float lacunarity = 0.5f, float persistance = 2f, float heightMultiplier = 1f)
+        public PerlinNoise(float scale = 1f, int octaves = 1, float frequency = 1f, float amplitude = 1f, float lacunarity = 0.5f, float persistance = 0.5f, float heightMultiplier = 1f)
         {
             this.scale = scale;
             this.octaves = octaves;
+            this.frequency = frequency;
+            this.amplitude = amplitude;
             this.lacunarity = lacunarity;
             this.persistance = persistance;
             this.heightMultiplier = heightMultiplier;
@@ -91,8 +95,8 @@ public class ExoplanetTerrain : MonoBehaviour
             {
                 for (int y = 0; y < length; y++)
                 {
-                    float frequency = 1f;
-                    float amplitude = 1f;
+                    float frequency = this.frequency;
+                    float amplitude = this.amplitude;
                     float height = 0;
 
                     for (int i = 0; i < octaves; i++)
