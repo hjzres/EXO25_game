@@ -20,6 +20,7 @@ public class ExoplanetTerrain : MonoBehaviour
 
     [Header("Terrain Layers")]
     public TerrainLayer[] terrainLayers;
+    private RockGenerator rockGeneratorScript;
 
     [Button]
     public void GenerateTerrain()
@@ -27,6 +28,7 @@ public class ExoplanetTerrain : MonoBehaviour
         ShaderProperties.SetValues();
         Terrain terrain = Terrain.activeTerrain;
         TerrainData data = terrain.terrainData;
+        rockGeneratorScript = GetComponent<RockGenerator>();
 
         data.heightmapResolution = width + 1;
         data.size = new Vector3(width, 1000, length);
@@ -48,40 +50,7 @@ public class ExoplanetTerrain : MonoBehaviour
         }
 
         data.SetHeights(0, 0, heights);
-        TextureTerrain(data, heights);
-    }
-
-    private void TextureTerrain(TerrainData data, float[,] heights)
-    {
-        float [,,] splatMap = new float[data.alphamapWidth, data.alphamapHeight, terrainLayers.Length];
-
-        for (int x = 0; x < data.alphamapWidth; x++)
-        {
-            for (int y = 0; y < data.alphamapHeight; y++)
-            {
-                float steepness = data.GetSteepness((float)x / data.alphamapWidth, (float)y / data.alphamapHeight);
-                float[] texturedWeights = new float[terrainLayers.Length];
-
-                if (heights[x, y] < 0.4f && steepness < 20f)
-                {
-                    texturedWeights[0] = 1;
-                }
-
-                else if (steepness > 30f)
-                {
-                    texturedWeights[1] = 1;
-                }
-
-                float totalWeight = texturedWeights[0] + texturedWeights[1];
-                
-                for (int i = 0; i < terrainLayers.Length; i++)
-                {
-                    splatMap[x, y, i] = texturedWeights[i];
-                }
-            }
-        }
-
-        //data.SetAlphamaps(0, 0, splatMap);
+        rockGeneratorScript.PlaceRocks(width, half + 75);
     }
 
     [System.Serializable]

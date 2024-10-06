@@ -4,15 +4,32 @@ using UnityEngine;
 
 public class EnvironmentManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("References")]
+    public Camera cam;
+    public Terrain terrain;
+    public Light directionalLight;
+
+    private void Start()
     {
-        
+        ShaderProperties.SetValues();
+        cam = FindObjectOfType<Camera>();
+        terrain = Terrain.activeTerrain;
+        directionalLight = FindObjectOfType<Light>();
+    }    
+
+    private void Update()
+    {
+        SetLightValues();
+        SetPostProcessingValues();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void SetLightValues()
     {
-        
+
+    }
+
+    private void SetPostProcessingValues()
+    {
+
     }
 }
