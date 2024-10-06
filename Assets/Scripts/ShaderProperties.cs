@@ -10,11 +10,20 @@ public static class ShaderProperties
     public static Color groundColor; // Determined by material of the planet
     public static Color horizonColor; 
     public static Color sunColor;
+    public static Color planetColor;
+    public static float heightMultiplier;
+    public static float frequency;
+    public static float amplitude;
+    public static float noiseScale;
     public static float starSize; //Size of the sun
     public static int planetTemp; //Adds a tint to the planet depending on how hot or cold our planet is
-    public static int starDistance; //Increases or decreases the size of the sun
+    public static float starDistance; //Increases or decreases the size of the sun
     public static Material skyboxMaterial;
 
+    public static void AcceptJavaScriptData()
+    {
+
+    }
 
     public static void SetValues()
     {
