@@ -50,7 +50,7 @@ public class ExoplanetTerrain : MonoBehaviour
         }
 
         data.SetHeights(0, 0, heights);
-        rockGeneratorScript.PlaceRocks(width, half + 75);
+        rockGeneratorScript.PlaceRocks(width, half - 20);
     }
 
     [System.Serializable]
