@@ -244,14 +244,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df355dbbed0385740851be2fa236b436, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planet: {fileID: 618767342}
   width: 1000
-  length: 1000
-  depth: 500
-  octaves: 2
-  lacunarity: 4
-  persistance: 1
-  scale: 2.92
+  height: 1000
+  scale: 20
+  octaves: 1
+  lacunarity: 0.1
+  persistence: 0.1
 --- !u!4 &1916587610
 Transform:
   m_ObjectHideFlags: 0
