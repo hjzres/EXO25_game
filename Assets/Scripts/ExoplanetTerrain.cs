@@ -9,57 +9,42 @@ public class ExoplanetTerrain : MonoBehaviour
 {
     [Header("Perlin Properties")]
     public int width = 256;
-    public int height = 256;
-    public float scale = 1f;
-    public int octaves = 1;
-    public float lacunarity = 1.0f;
-    public float persistence = 1.0f;
-    public float[,] noiseMap;
-
-    [Header("Texture Properties")]
-    private TerrainLayer[] layers;
+    public int length = 256;
+    public float period = 1.0f;
+    public int half = 500;
 
     [Button]
     public void GenerateTerrain()
     {
         Terrain terrain = Terrain.activeTerrain;
         TerrainData data = terrain.terrainData;
-        noiseMap = PerlinNoise2D(width, height, scale, octaves, lacunarity, persistence);
 
         data.heightmapResolution = width + 1;
-        data.size = new Vector3(width, 100, height);
+        data.size = new Vector3(width, 100, length);
         
-        data.SetHeights(0, 0, noiseMap);
-    }
+        float[,] duneRegion = PerlinNoise2D(5f, 1);
+        float[,] mountainRegion = PerlinNoise2D(20f, 1, 0.5f, 5f);
+        float[,] heights = new float[width, length];
 
-    public void SetTerrainTextures(Terrain terrain)
-    {
-        layers = terrain.terrainData.terrainLayers;
-
-        float[,] heights = terrain.terrainData.GetHeights(0, 0, width, height);
-
-        for (int i = 0; i < heights.GetLength(0); i++)
+        for (int x = 0; x < width; x++)
         {
-            for (int j = 0; j < heights.GetLength(1); j++)
+            for (int y = 0; y < length; y++)
             {
-                if (height < 10)
-                {
+                float blend = ((x - half) / period) + 0.5f;
+                blend = Mathf.Clamp01(blend);
 
-                }
-
-                else
-                {
-
-                }
+                heights[x, y] = Mathf.SmoothStep(duneRegion[x, y], mountainRegion[x, y], blend);
             }
         }
+
+        data.SetHeights(0, 0, heights);
     }
 
-    public float[,] PerlinNoise2D(float width, float length, float scale = 1f, int octaves = 1, float lacunarity = 1f, float persistence = 1f)
+    public float[,] PerlinNoise2D(float scale = 1f, int octaves = 1, float lacunarity = 0.5f, float persistence = 2f)
     {
-        float[,] noiseMap = new float[(int)width, (int)length];
+        float[,] noiseMap = new float[width, length];
 
-        int seed = Random.Range(-100000, 100000);
+        int seed = UnityEngine.Random.Range(-100000, 100000);
         Vector2[] octaveOffset = new Vector2[octaves];
         System.Random pseudoRNG = new System.Random(seed);
 
@@ -75,7 +60,6 @@ public class ExoplanetTerrain : MonoBehaviour
         {
             for (int y = 0; y < length; y++)
             {
-                //float multiplier = 0.2f;
                 float frequency = 1f;
                 float amplitude = 1f;
                 float height = 0;
@@ -84,33 +68,15 @@ public class ExoplanetTerrain : MonoBehaviour
                 {
                     float sampleX = (float)x / width * scale * frequency + octaveOffset[i].x;
                     float sampleY = (float)y / length * scale * frequency + octaveOffset[i].y;
-                    float perlinValue = Mathf.PerlinNoise(sampleX, sampleY);
-                    height += perlinValue * amplitude;
+                    float perlinValue = Mathf.PerlinNoise(sampleX, sampleY) * amplitude;
+
                     frequency *= lacunarity;
                     amplitude *= persistence;
+
+                    height += perlinValue;
                 }
 
-                //float multiplier = height < 0.3f ? 0.2f : (height >= 0.3f || height <= 0.9f ? 1f : 2.3f);
-                //height *= multiplier;
                 noiseMap[x, y] = height;
-            }
-        }
-
-        int x1 = 0;
-        float multiplier = 0;
-        
-        while (x1 < width / 2)
-        {
-            multiplier = x1 * x1;
-            noiseMap[x1, 0] *= multiplier;
-            x1++;
-        }
-
-        for (int i = 0; i < noiseMap.GetLength(0); i++)
-        {
-            for (int j = 0; j < noiseMap.GetLength(1); j++)
-            {
-
             }
         }
 
