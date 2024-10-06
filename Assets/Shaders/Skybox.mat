@@ -38,17 +38,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Ground_Blend: 0.74
-    - _Horizon_Blend: 1.84
+    - _Ground_Blend: 2.46
+    - _Horizon_Blend: 1.77
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Sky_Blend: 1.24
-    - _Sun_Size: 0.955
+    - _Sky_Blend: 0.94
+    - _Sun_Size: 0.959
     m_Colors:
     - _Ground_Colour: {r: 0.29411766, g: 0.24705882, b: 0.15686275, a: 0}
-    - _Horizon_Colour: {r: 0.4716981, g: 0.3214158, b: 0.03337486, a: 0}
-    - _Sky_Colour: {r: 0.7924528, g: 0.58544165, b: 0.12335351, a: 0}
-    - _Sun_Colour: {r: 0.754717, g: 0.6322676, b: 0.12459949, a: 0}
+    - _Horizon_Colour: {r: 0.6698113, g: 0.48268998, b: 0.12322002, a: 0}
+    - _Sky_Colour: {r: 0.7830189, g: 0.5941327, b: 0.1735938, a: 0}
+    - _Sun_Colour: {r: 1, g: 0.849204, b: 0.2216981, a: 0}
     - _Sun_Direction: {r: 0, g: 0, b: -0.6, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5889763097182943160
