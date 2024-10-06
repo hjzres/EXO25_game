@@ -467,6 +467,21 @@ MonoBehaviour:
   length: 2000
   period: 250
   half: 750
+  heightMultiplier: 0.1
+  noises:
+  - scale: 7
+    octaves: 1
+    lacunarity: 0.2
+    persistance: 0.1
+    heightMultiplier: 1
+  - scale: 25
+    octaves: 2
+    lacunarity: 1
+    persistance: 1
+    heightMultiplier: 0.87
+  terrainLayers:
+  - {fileID: 8574412962073106934, guid: 7b7352a2122b6f444b6f656145a6ef05, type: 2}
+  - {fileID: 8574412962073106934, guid: a2d0f36d1719e48468973184088472ea, type: 2}
 --- !u!4 &1916587610
 Transform:
   m_ObjectHideFlags: 0
