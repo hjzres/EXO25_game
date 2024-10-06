@@ -16,6 +16,7 @@ public class ExoplanetTerrain : MonoBehaviour
     [Button]
     public void GenerateTerrain()
     {
+        ShaderProperties.SetValues();
         Terrain terrain = Terrain.activeTerrain;
         TerrainData data = terrain.terrainData;
 
