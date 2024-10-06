@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.PostProcessing;
 
 public class EnvironmentManager : MonoBehaviour
 {
@@ -8,6 +10,7 @@ public class EnvironmentManager : MonoBehaviour
     public Camera cam;
     public Terrain terrain;
     public Light directionalLight;
+    public Volume globalVolume;
 
     private void Start()
     {
@@ -15,20 +18,21 @@ public class EnvironmentManager : MonoBehaviour
         cam = FindObjectOfType<Camera>();
         terrain = Terrain.activeTerrain;
         directionalLight = FindObjectOfType<Light>();
+        globalVolume = FindObjectOfType<Volume>();
     }    
 
     private void Update()
     {
         SetLightValues();
-        SetPostProcessingValues();
+        SetParameters();
     }
 
     private void SetLightValues()
     {
-
+        RenderSettings.fogColor = ShaderProperties.skyColor;
     }
 
-    private void SetPostProcessingValues()
+    private void SetParameters()
     {
 
     }
