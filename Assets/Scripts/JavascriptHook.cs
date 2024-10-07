@@ -6,7 +6,7 @@ public class JavascriptHook : MonoBehaviour
 {
     public void StarDistance(float distance)
     {
-        ShaderProperties.starDistance = distance;
+        ShaderProperties.starSize = distance;
     } 
 
     public void PlanetColour(string hexColor)
@@ -29,8 +29,13 @@ public class JavascriptHook : MonoBehaviour
         ShaderProperties.amplitude = amplitude;
     }
 
-    public void NoiseScaleDune(float scale)
+    public void NoiseScaleGlobal(float scale)
     {
-        ShaderProperties.noiseScale = scale;
+        ShaderProperties.noiseScaleGlobal = scale;
+    }
+
+    public void StarType(string type)
+    {
+        ShaderProperties.starType = type;
     }
 }

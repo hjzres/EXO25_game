@@ -13,7 +13,6 @@ public class ExoplanetTerrain : MonoBehaviour
     public int length = 256;
     public float period = 1.0f;
     public int half = 500;
-    [Range(0, 1)] public float heightMultiplier;
 
     [Header("Perlin Maps")]
     public PerlinNoise[] noises = new PerlinNoise[2];
@@ -22,8 +21,7 @@ public class ExoplanetTerrain : MonoBehaviour
     public TerrainLayer[] terrainLayers;
     private RockGenerator rockGeneratorScript;
 
-    [Button]
-    public void GenerateTerrain()
+    public void Start()
     {
         ShaderProperties.SetValues();
         Terrain terrain = Terrain.activeTerrain;
@@ -45,7 +43,7 @@ public class ExoplanetTerrain : MonoBehaviour
                 float blend = ((x - half) / period) + 0.5f;
                 blend = Mathf.Clamp01(blend);
 
-                heights[x, y] = Mathf.SmoothStep(duneRegion[x, y], mountainRegion[x, y], blend) * heightMultiplier;
+                heights[x, y] = Mathf.SmoothStep(duneRegion[x, y], mountainRegion[x, y], blend) * 0.1f * ShaderProperties.heightMultiplier;
             }
         }
 
@@ -78,6 +76,7 @@ public class ExoplanetTerrain : MonoBehaviour
         public float[,] Noise2D(int width, int length)
         {
             float[,] noiseMap = new float[width, length];
+            float newScale = scale * ShaderProperties.noiseScaleGlobal * 0.1f;
 
             int seed = UnityEngine.Random.Range(-100000, 100000);
             Vector2[] octaveOffset = new Vector2[octaves];
@@ -95,14 +94,14 @@ public class ExoplanetTerrain : MonoBehaviour
             {
                 for (int y = 0; y < length; y++)
                 {
-                    float frequency = this.frequency;
-                    float amplitude = this.amplitude;
+                    float frequency = this.frequency * ShaderProperties.frequency * 0.75f;
+                    float amplitude = this.amplitude * ShaderProperties.amplitude * 0.75f;
                     float height = 0;
 
                     for (int i = 0; i < octaves; i++)
                     {
-                        float sampleX = (float)x / width * scale * frequency + octaveOffset[i].x;
-                        float sampleY = (float)y / length * scale * frequency + octaveOffset[i].y;
+                        float sampleX = (float)x / width * newScale * frequency + octaveOffset[i].x;
+                        float sampleY = (float)y / length * newScale * frequency + octaveOffset[i].y;
                         float perlinValue = Mathf.PerlinNoise(sampleX, sampleY) * amplitude;
 
                         frequency *= lacunarity;

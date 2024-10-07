@@ -45,9 +45,9 @@ Material:
     - _Sky_Blend: 0.94
     - _Sun_Size: 0.959
     m_Colors:
-    - _Ground_Colour: {r: 0.29411766, g: 0.24705882, b: 0.15686275, a: 0}
-    - _Horizon_Colour: {r: 0.6698113, g: 0.48268998, b: 0.12322002, a: 0}
-    - _Sky_Colour: {r: 0.7830189, g: 0.5941327, b: 0.1735938, a: 0}
+    - _Ground_Colour: {r: 0.3137255, g: 0.81960785, b: 0.7647059, a: 0}
+    - _Horizon_Colour: {r: 0.3137255, g: 0.81960785, b: 0.7647059, a: 0}
+    - _Sky_Colour: {r: 0.31359026, g: 0.8207547, b: 0.76578635, a: 0}
     - _Sun_Colour: {r: 1, g: 0.849204, b: 0.2216981, a: 0}
     - _Sun_Direction: {r: 0, g: 0, b: -0.6, a: 0}
   m_BuildTextureStacks: []
